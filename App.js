@@ -4,11 +4,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
 import HomeHeader from './components/HomeHeader';
 import { useCustomFonts } from './utility/font';
+import BookDetail from './screens/BookDetail';
+import { Text, View } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 const Stack = createNativeStackNavigator();
 
 
-export default function App() {
+export default function App({navigation}) {
   const fontsLoaded = useCustomFonts();
 
   if (!fontsLoaded) {
@@ -25,6 +28,11 @@ export default function App() {
             fontFamily: 'Poppins_600'
           }
         }} /> 
+        <Stack.Screen name='BookDetail' component={BookDetail} options={({navigation}) => ({
+          headerRight: () => <View><Text style={{fontFamily: 'Poppins_500', fontSize: 15}}>Delete</Text></View>,
+          title: null,
+          headerLeft: () => <AntDesign name="arrowleft" size={24} color="black"  onPress={() => navigation.goBack()} />
+        })} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
