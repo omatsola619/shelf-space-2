@@ -8,6 +8,8 @@ import BookDetail from './screens/BookDetail';
 import { Text, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import AddBook from './screens/AddBook';
+import SearchScreen from './screens/SearchScreen';
+import SearchHeader from './components/SearchHeader';
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +44,9 @@ export default function App({navigation}) {
             fontSize: 20
           },
           headerTitleAlign: 'center'
+        })} />
+        <Stack.Screen name='Search' component={SearchScreen} options={({
+          header: ({options, route}) => <SearchHeader options={options} route={route} />
         })} />
       </Stack.Navigator>
       <StatusBar style="auto" />
