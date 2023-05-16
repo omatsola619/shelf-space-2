@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, TextInput, TouchableHighlight, TouchableOpacity, Image } from 'react-native'
 import React, {useState} from 'react'
 import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
@@ -77,14 +77,15 @@ const AddBook = () => {
             <Feather name="upload" size={18} color="#2b6cb0" />
           </View>
         </TouchableHighlight>
-        {/* {selectedImage && (
+        {selectedImage && (
           <Image
             source={{ uri: selectedImage }}
             style={{ width: 200, height: 200, paddingBottom: 5 }}
+            className='mt-5'
           />
-        )} */}
+        )}
       </View>
-      <TouchableOpacity className='w-full rounded-lg bg-blue-700 h-11 mt-2 flex-row justify-center items-center'>
+      <TouchableOpacity className='w-full rounded-lg bg-blue-700 h-11 mt-2 flex-row justify-center items-center mb-10'>
         <Text className='text-base text-white' style={{ fontFamily: "Poppins_400" }}>Submit</Text>
       </TouchableOpacity>
     </ScrollView>
