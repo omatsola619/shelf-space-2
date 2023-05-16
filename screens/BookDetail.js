@@ -52,4 +52,4 @@ const BookDetail = ({route}) => {
   );
 }
 
-export default BookDetail
+export default BookDetail;
