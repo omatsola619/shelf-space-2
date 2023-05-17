@@ -1,8 +1,11 @@
 import { View, SafeAreaView, TextInput, Platform } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 const SearchHeader = () => {
+    const navigation = useNavigation()
+
   return (
     <SafeAreaView
       style={{ paddingTop: Platform.OS === "android" ? 30 : 0 }}
@@ -20,6 +23,7 @@ const SearchHeader = () => {
           placeholder="Search Book, Title or Author"
           selectionColor="black"
           style={{ fontFamily: "Poppins_400" }}
+          
         />
       </View>
     </SafeAreaView>
