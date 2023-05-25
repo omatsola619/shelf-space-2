@@ -1,10 +1,16 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
 
 const HCard = ({data}) => {
+  const navigation = useNavigation()
+
+    const handleNav = (selectedData) => {
+        navigation.navigate('BookDetail', {dataItem: selectedData})
+    }
 
   return (
-    <TouchableOpacity className='flex-row gap-2 mb-8'>
+    <TouchableOpacity onPress={() => handleNav(data)} className='flex-row gap-2 mb-8'>
       <Image
         source={data.image}
         style={{ width: 100, height: 120}}
