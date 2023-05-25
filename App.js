@@ -46,7 +46,7 @@ export default function App({navigation}) {
           headerTitleAlign: 'center'
         })} />
         <Stack.Screen name='Search' component={SearchScreen} options={({
-          header: ({options, route}) => <SearchHeader options={options} route={route} />
+          headerShown: false,
         })} />
       </Stack.Navigator>
       <StatusBar style="auto" />

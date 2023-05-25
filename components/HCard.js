@@ -1,9 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import {DATA} from '../data/dummyData'
 
-const HCard = () => {
-  const data = DATA[1];
+const HCard = ({data}) => {
 
   return (
     <TouchableOpacity className='flex-row gap-2 mb-8'>
