@@ -4,6 +4,26 @@ import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { Formik } from 'formik';
 import { validate } from '../utility/formikValidation';
+import * as Yup from 'yup'
+
+const AddBookSchema = Yup.object().shape({
+  title: Yup.string()
+    .required('Required'),
+  year: Yup.string()
+    .required('Required'),
+  description: Yup.string()
+    .required('Required'),
+  author: Yup.string()
+    .required('Required'),
+  genre: Yup.string()
+    .required('Required'),
+  price: Yup.string()
+    .required('Required'),
+  quantity: Yup.string()
+    .required('Required'),
+  isbn: Yup.string()
+    .required('Required'),
+})
 
 const AddBook = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -32,9 +52,10 @@ const AddBook = () => {
         isbn: "",
         image: selectedImage,
       }}
+      validationSchema={AddBookSchema}
       onSubmit={(values) => console.log(values)}
     >
-      {({ handleChange, handleBlur, handleSubmit, values }) => (
+      {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
         <ScrollView className="bg-white px-4 pt-5">
           <>
             <View className="mb-4">
@@ -50,6 +71,7 @@ const AddBook = () => {
                 onBlur={handleBlur('title')}
                 value={values.title}
               />
+              {errors.title && touched.title ? ( <Text className='text-red-400'>{errors.title}</Text>) : null}
             </View>
             <View className="mb-4">
               <Text
@@ -64,6 +86,7 @@ const AddBook = () => {
                 onBlur={handleBlur('year')}
                 value={values.year}
               />
+              {errors.year && touched.year ? ( <Text className='text-red-400'>{errors.year}</Text>) : null}
             </View>
             <View className="mb-4">
               <Text
@@ -78,6 +101,7 @@ const AddBook = () => {
                 onBlur={handleBlur('description')}
                 value={values.description}
               />
+              {errors.description && touched.description ? ( <Text className='text-red-400'>{errors.description}</Text>) : null}
             </View>
             <View className="mb-4">
               <Text
@@ -92,6 +116,7 @@ const AddBook = () => {
                 onBlur={handleBlur('author')}
                 value={values.author}
               />
+              {errors.author && touched.author ? ( <Text className='text-red-400'>{errors.author}</Text>) : null}
             </View>
             <View className="mb-4">
               <Text
@@ -106,6 +131,7 @@ const AddBook = () => {
                 onBlur={handleBlur('genre')}
                 value={values.genre}
               />
+              {errors.genre && touched.genre ? ( <Text className='text-red-400'>{errors.genre}</Text>) : null}
             </View>
             <View className="mb-4">
               <Text
@@ -120,6 +146,7 @@ const AddBook = () => {
                 onBlur={handleBlur('price')}
                 value={values.price}
               />
+              {errors.price && touched.price ? ( <Text className='text-red-400'>{errors.price}</Text>) : null}
             </View>
             <View className="mb-4">
               <Text
@@ -134,6 +161,7 @@ const AddBook = () => {
                 onBlur={handleBlur('quantity')}
                 value={values.quantity}
               />
+              {errors.quantity && touched.quantity ? ( <Text className='text-red-400'>{errors.quantity}</Text>) : null}
             </View>
             <View className="mb-7">
               <Text
@@ -148,6 +176,7 @@ const AddBook = () => {
                 onBlur={handleBlur('isbn')}
                 value={values.isbn}
               />
+              {errors.isbn && touched.isbn ? ( <Text className='text-red-400'>{errors.isbn}</Text>) : null}
             </View>
             <View className="mb-4">
               <TouchableHighlight
