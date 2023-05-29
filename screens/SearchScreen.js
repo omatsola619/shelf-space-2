@@ -23,7 +23,9 @@ const SearchScreen = () => {
   return (
     <View className="bg-white flex-1 pt-5 px-3">
       <SearchHeader onTextChange={handleTextChange} value={query} />
-      <ScrollView className="flex-1 pt-7">
+      {/* the keyboardShouldPersistTaps='handled' makes the component to be clickable 
+      even when the keyboard is open */}
+      <ScrollView keyboardShouldPersistTaps='handled' className="flex-1 pt-7">
         {filteredItems.length === 0 || query === "" ? (
           <Text
             className="text-base text-center text-gray-500"
