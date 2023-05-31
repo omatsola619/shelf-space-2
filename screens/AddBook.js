@@ -3,11 +3,30 @@ import React, {useState} from 'react'
 import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 
+const initialValues = {
+    title: '',
+    year: '',
+    description: '',
+    author: '',
+    genre: '',
+    price: '',
+    quantity: '',
+    isbn: '',
+    image: null
+  }
+
 const AddBook = () => {
-  const [image, setImage] = useState(null);
+  const [formData, setFormData] = useState(initialValues)
+
+  const handleChange = (text, identifier) => {
+    setFormData({
+      ...formData,
+      [identifier]: text,
+    })
+  }
+
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -15,14 +34,17 @@ const AddBook = () => {
       quality: 1,
     });
 
-    // console.log(result);
-
-    // if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    // }
+    if (!result.canceled) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        image: result.assets[0].uri
+      }));
+    }
   };
 
-  
+  const handleSubmit = () => {
+    console.log(formData)
+  }
 
   return (
         <ScrollView className="bg-white px-4 pt-5">
@@ -36,6 +58,9 @@ const AddBook = () => {
               </Text>
               <TextInput 
                 className="w-full border border-gray-400 h-11 rounded-lg pl-3"
+                value={formData.title}
+                onChangeText={(text) => handleChange(text, 'title')}
+                name='title'
               />
             </View>
             <View className="mb-4">
@@ -47,6 +72,8 @@ const AddBook = () => {
               </Text>
               <TextInput 
                 className="w-full border border-gray-400 h-11 rounded-lg pl-3"
+                value={formData.year}
+                onChangeText={(text) => handleChange(text, 'year')}
               />
             </View>
             <View className="mb-4">
@@ -58,6 +85,8 @@ const AddBook = () => {
               </Text>
               <TextInput 
                 className="w-full border border-gray-400 h-11 rounded-lg pl-3"
+                value={formData.description}
+                onChangeText={(text) => handleChange(text, 'description')}
               />
             </View>
             <View className="mb-4">
@@ -69,6 +98,8 @@ const AddBook = () => {
               </Text>
               <TextInput 
                 className="w-full border border-gray-400 h-11 rounded-lg pl-3"
+                value={formData.author}
+                onChangeText={(text) => handleChange(text, 'author')}
               />
             </View>
             <View className="mb-4">
@@ -80,6 +111,8 @@ const AddBook = () => {
               </Text>
               <TextInput 
                 className="w-full border border-gray-400 h-11 rounded-lg pl-3"
+                value={formData.genre}
+                onChangeText={(text) => handleChange(text, 'genre')}
               />
             </View>
             <View className="mb-4">
@@ -91,6 +124,8 @@ const AddBook = () => {
               </Text>
               <TextInput 
                 className="w-full border border-gray-400 h-11 rounded-lg pl-3"
+                value={formData.price}
+                onChangeText={(text) => handleChange(text, 'price')}
               />
             </View>
             <View className="mb-4">
@@ -102,6 +137,8 @@ const AddBook = () => {
               </Text>
               <TextInput 
                 className="w-full border border-gray-400 h-11 rounded-lg pl-3"
+                value={formData.quantity}
+                onChangeText={(text) => handleChange(text, 'quantity')}
               />
             </View>
             <View className="mb-7">
@@ -113,11 +150,14 @@ const AddBook = () => {
               </Text>
               <TextInput 
                 className="w-full border border-gray-400 h-11 rounded-lg pl-3"
+                value={formData.isbn}
+                onChangeText={(text) => handleChange(text, 'isbn')}
               />
             </View>
             <View className="mb-4">
               <TouchableHighlight
                 className="w-full border border-blue-700 rounded-lg"
+                onPress={pickImage}
               >
                 <View className="flex-row justify-center items-center gap-2 p-3">
                   <Text
@@ -129,9 +169,9 @@ const AddBook = () => {
                   <Feather name="upload" size={18} color="#2b6cb0" />
                 </View>
               </TouchableHighlight>
-              {image && (
+              {formData.image && (
                 <Image
-                  source={{ uri: image }}
+                  source={{ uri: formData.image }}
                   style={{ width: 200, height: 200, paddingBottom: 5 }}
                   className="mt-5"
                 />
@@ -139,6 +179,7 @@ const AddBook = () => {
             </View>
             <TouchableOpacity 
               className="w-full rounded-lg bg-blue-700 h-11 mt-2 flex-row justify-center items-center mb-10"
+              onPress={handleSubmit}
             >
               <Text
                 className="text-base text-white"
