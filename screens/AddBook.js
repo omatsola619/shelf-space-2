@@ -1,61 +1,30 @@
-import { View, Text, ScrollView, TextInput, TouchableHighlight, TouchableOpacity, Image } from 'react-native'
+import { View, Text, ScrollView, TextInput, TouchableHighlight, TouchableOpacity, Image, Button } from 'react-native'
 import React, {useState} from 'react'
 import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import { Formik } from 'formik';
-import { validate } from '../utility/formikValidation';
-import * as Yup from 'yup'
-
-const AddBookSchema = Yup.object().shape({
-  title: Yup.string()
-    .required('Required'),
-  year: Yup.string()
-    .required('Required'),
-  description: Yup.string()
-    .required('Required'),
-  author: Yup.string()
-    .required('Required'),
-  genre: Yup.string()
-    .required('Required'),
-  price: Yup.string()
-    .required('Required'),
-  quantity: Yup.string()
-    .required('Required'),
-  isbn: Yup.string()
-    .required('Required'),
-})
 
 const AddBook = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [image, setImage] = useState(null);
 
-  const selectImage = async () => {
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-    if (!result.canceled) {
-      setSelectedImage(result.assets[0].uri);
-    }
+
+    // console.log(result);
+
+    // if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    // }
   };
 
+  
+
   return (
-    <Formik
-      initialValues={{
-        title: "",
-        year: "",
-        description: "",
-        author: "",
-        genre: "",
-        price: "",
-        isbn: "",
-        image: selectedImage,
-      }}
-      validationSchema={AddBookSchema}
-      onSubmit={(values) => console.log(values)}
-    >
-      {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
         <ScrollView className="bg-white px-4 pt-5">
           <>
             <View className="mb-4">
@@ -66,12 +35,8 @@ const AddBook = () => {
                 Title
               </Text>
               <TextInput 
-                className="w-full border border-gray-400 h-11 rounded-lg pl-3" 
-                onChangeText={handleChange('title')}
-                onBlur={handleBlur('title')}
-                value={values.title}
+                className="w-full border border-gray-400 h-11 rounded-lg pl-3"
               />
-              {errors.title && touched.title ? ( <Text className='text-red-400'>{errors.title}</Text>) : null}
             </View>
             <View className="mb-4">
               <Text
@@ -81,12 +46,8 @@ const AddBook = () => {
                 Year
               </Text>
               <TextInput 
-                className="w-full border border-gray-400 h-11 rounded-lg pl-3" 
-                onChangeText={handleChange('year')}
-                onBlur={handleBlur('year')}
-                value={values.year}
+                className="w-full border border-gray-400 h-11 rounded-lg pl-3"
               />
-              {errors.year && touched.year ? ( <Text className='text-red-400'>{errors.year}</Text>) : null}
             </View>
             <View className="mb-4">
               <Text
@@ -96,12 +57,8 @@ const AddBook = () => {
                 Description
               </Text>
               <TextInput 
-                className="w-full border border-gray-400 h-11 rounded-lg pl-3" 
-                onChangeText={handleChange('description')}
-                onBlur={handleBlur('description')}
-                value={values.description}
+                className="w-full border border-gray-400 h-11 rounded-lg pl-3"
               />
-              {errors.description && touched.description ? ( <Text className='text-red-400'>{errors.description}</Text>) : null}
             </View>
             <View className="mb-4">
               <Text
@@ -111,12 +68,8 @@ const AddBook = () => {
                 Author
               </Text>
               <TextInput 
-                className="w-full border border-gray-400 h-11 rounded-lg pl-3" 
-                onChangeText={handleChange('author')}
-                onBlur={handleBlur('author')}
-                value={values.author}
+                className="w-full border border-gray-400 h-11 rounded-lg pl-3"
               />
-              {errors.author && touched.author ? ( <Text className='text-red-400'>{errors.author}</Text>) : null}
             </View>
             <View className="mb-4">
               <Text
@@ -126,12 +79,8 @@ const AddBook = () => {
                 Genre
               </Text>
               <TextInput 
-                className="w-full border border-gray-400 h-11 rounded-lg pl-3" 
-                onChangeText={handleChange('genre')}
-                onBlur={handleBlur('genre')}
-                value={values.genre}
+                className="w-full border border-gray-400 h-11 rounded-lg pl-3"
               />
-              {errors.genre && touched.genre ? ( <Text className='text-red-400'>{errors.genre}</Text>) : null}
             </View>
             <View className="mb-4">
               <Text
@@ -141,12 +90,8 @@ const AddBook = () => {
                 Price
               </Text>
               <TextInput 
-                className="w-full border border-gray-400 h-11 rounded-lg pl-3" 
-                onChangeText={handleChange('price')}
-                onBlur={handleBlur('price')}
-                value={values.price}
+                className="w-full border border-gray-400 h-11 rounded-lg pl-3"
               />
-              {errors.price && touched.price ? ( <Text className='text-red-400'>{errors.price}</Text>) : null}
             </View>
             <View className="mb-4">
               <Text
@@ -156,12 +101,8 @@ const AddBook = () => {
                 Quantity
               </Text>
               <TextInput 
-                className="w-full border border-gray-400 h-11 rounded-lg pl-3" 
-                onChangeText={handleChange('quantity')}
-                onBlur={handleBlur('quantity')}
-                value={values.quantity}
+                className="w-full border border-gray-400 h-11 rounded-lg pl-3"
               />
-              {errors.quantity && touched.quantity ? ( <Text className='text-red-400'>{errors.quantity}</Text>) : null}
             </View>
             <View className="mb-7">
               <Text
@@ -171,17 +112,12 @@ const AddBook = () => {
                 ISBN
               </Text>
               <TextInput 
-                className="w-full border border-gray-400 h-11 rounded-lg pl-3" 
-                onChangeText={handleChange('isbn')}
-                onBlur={handleBlur('isbn')}
-                value={values.isbn}
+                className="w-full border border-gray-400 h-11 rounded-lg pl-3"
               />
-              {errors.isbn && touched.isbn ? ( <Text className='text-red-400'>{errors.isbn}</Text>) : null}
             </View>
             <View className="mb-4">
               <TouchableHighlight
                 className="w-full border border-blue-700 rounded-lg"
-                onPress={selectImage}
               >
                 <View className="flex-row justify-center items-center gap-2 p-3">
                   <Text
@@ -193,9 +129,9 @@ const AddBook = () => {
                   <Feather name="upload" size={18} color="#2b6cb0" />
                 </View>
               </TouchableHighlight>
-              {selectedImage && (
+              {image && (
                 <Image
-                  source={{ uri: selectedImage }}
+                  source={{ uri: image }}
                   style={{ width: 200, height: 200, paddingBottom: 5 }}
                   className="mt-5"
                 />
@@ -203,7 +139,6 @@ const AddBook = () => {
             </View>
             <TouchableOpacity 
               className="w-full rounded-lg bg-blue-700 h-11 mt-2 flex-row justify-center items-center mb-10"
-              onPress={handleSubmit}
             >
               <Text
                 className="text-base text-white"
@@ -214,8 +149,6 @@ const AddBook = () => {
             </TouchableOpacity>
           </>
         </ScrollView>
-      )}
-    </Formik>
   );
 };
 

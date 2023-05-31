@@ -7,15 +7,15 @@ const BookDetail = ({route}) => {
   return (
     <ScrollView className="bg-white flex-col flex-1 px-3 pt-7">
       <View className="flex-row justify-center">
-        <Image
+        <Image  
           source={data.image}
-          style={{ width: 200, height: 270, borderRadius: 7 }}
-          resizeMode="cover"
+          style={{width: 200, height: 270, borderRadius: 7}}
+          resizeMode='cover'
         />
       </View>
       <Text
         className="text-center mt-5 text-2xl"
-        style={{ fontFamily: "Poppins_500" }}
+        style={{fontFamily: "Poppins_500"}}
       >
         {data.title}
       </Text>

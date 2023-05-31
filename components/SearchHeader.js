@@ -1,6 +1,6 @@
 import { View, SafeAreaView, TextInput, Platform } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 
 const SearchHeader = ({onTextChange, value}) => {
